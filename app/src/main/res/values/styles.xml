@@ -1,0 +1,42 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- My application theme. -->
+    <style name="MyAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/myColorPrimary</item>
+        <item name="colorPrimaryDark">@color/myColorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <!-- My application theme. -->
+    <style name="ToolBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--菜单图标-->
+        <!--item name="android:src">@drawable/outline_menu_black_24</item-->
+
+        <!--菜单弹出位置-->
+        <!-- 修改竖直方向上与屏幕顶端的距离为50dp -->
+        <item name="android:dropDownVerticalOffset">50dp</item>
+        <!-- 修改水平方向上与屏幕右端的距离为0dp -->
+        <item name="android:dropDownHorizontalOffset">0dp</item>
+    </style>
+
+    <!--EditText主题-->
+    <style name="MyEditTextTheme" parent="Theme.AppCompat.Light">
+        <item name="colorControlNormal">@color/grey_bababa</item>
+        <item name="colorControlActivated">@color/colorPrimary</item>
+    </style>
+
+</resources>
