@@ -36,4 +36,8 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
     //OkHttp
     implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    //glide-transformations
+    implementation 'jp.wasabeef:glide-transformations:4.0.1'
+    //GPU Filters
+    implementation 'jp.co.cyberagent.android:gpuimage:2.0.3'
 }
