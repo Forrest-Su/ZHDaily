@@ -27,17 +27,19 @@ public class ParseJSONUtil {
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
 
+            String date = jsonObject.getString("date");
             JSONArray stories = jsonObject.getJSONArray("stories");
 
             for (int i = 0; i < stories.length(); i++) {
                 JSONObject obj = stories.getJSONObject(i);
                 String title = obj.getString("title");
                 String imagesUrl = obj.getJSONArray("images").get(0).toString();
-                String type = obj.getString("type");
+                int type = obj.getInt("type");
                 String id = obj.getString("id");
 
-                list.add(new News(title, imagesUrl, type, id));
+                list.add(new News(date, title, imagesUrl, type, id));
 
+                Log.i(TAG, "parseNewsList: date:" + date);
                 Log.i(TAG, "parseNewsList: 新闻列表");
                 Log.i(TAG, "parseNewsList: type:" + type);
                 Log.i(TAG, "parseNewsList: id:" + id);
@@ -61,16 +63,18 @@ public class ParseJSONUtil {
 
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
+
+            String date = jsonObject.getString("date");
             JSONArray topStories = jsonObject.getJSONArray("top_stories");
 
             for (int i = 0; i < topStories.length(); i++) {
                 JSONObject obj = topStories.getJSONObject(i);
                 String title = obj.getString("title");
                 String imagesUrl = obj.getString("image");
-                String type = obj.getString("type");
+                int type = obj.getInt("type");
                 String id = obj.getString("id");
 
-                list.add(new News(title, imagesUrl, type, id));
+                list.add(new News(date, title, imagesUrl, type, id));
 
                 Log.i(TAG, "parseTopNewsList: 置顶新闻列表");
                 Log.i(TAG, "parseNewsList: type:" + type);
@@ -95,21 +99,22 @@ public class ParseJSONUtil {
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
 
-            String body = jsonObject.getString("body");  //新闻主体，html
-            String imageSource = jsonObject.getString("image_source"); //图片来源
-            String title = jsonObject.getString("title");  //新闻标题
-            String imageUrl = jsonObject.getString("image");  //大图url
-            String shareUrl = jsonObject.getString("share_url");  //分享链接
-            String imagesUrl = jsonObject.getString("images");  //缩略图url
-            String type = jsonObject.getString("type");  //
-            String id = jsonObject.getString("id");  //新闻id
-            JSONArray jsonArray = jsonObject.getJSONArray("css");
-            String[] css = new String[jsonArray.length()];
-            for (int i = 0; i < jsonArray.length(); i++) {
-                css[i] = jsonArray.get(i).toString();
+            int type = jsonObject.getInt("type");
+            if (type == 0) {
+                String body = jsonObject.getString("body");  //新闻主体，html
+                String imageSource = jsonObject.getString("image_source"); //图片来源
+                String title = jsonObject.getString("title");  //新闻标题
+                String imageUrl = jsonObject.getString("image");  //大图url
+                String shareUrl = jsonObject.getString("share_url");  //分享链接
+                String imagesUrl = jsonObject.getString("images");  //缩略图url
+                String id = jsonObject.getString("id");  //新闻id
+                JSONArray jsonArray = jsonObject.getJSONArray("css");
+                String[] css = new String[jsonArray.length()];
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    css[i] = jsonArray.get(i).toString();
+                }
+                news = new News(body, imageSource, title, imageUrl, shareUrl, imagesUrl, type, id, css);
             }
-
-            news = new News(body, imageSource, title, imageUrl, shareUrl, imagesUrl, type, id, css);
         } catch(JSONException e) {
             e.printStackTrace();
         }

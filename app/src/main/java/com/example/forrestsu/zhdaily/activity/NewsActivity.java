@@ -112,7 +112,9 @@ public class NewsActivity extends BaseActivity {
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG, "onResponse: 请求成功");
                 News news = ParseJSONUtil.parseNews(response.body().string());
-                refreshUI(news);
+                if (news != null) {
+                    refreshUI(news);
+                }
             }
 
             @Override

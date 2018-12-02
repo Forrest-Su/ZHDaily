@@ -25,9 +25,27 @@ public class MyCalendar {
         return "";
     }
 
-    //将String转换为Date
-    public static Date strToDate(String str) {
+    /**
+     * 将String转换为Date
+     * @param str  日期，String类型
+     * @param dateFormat  日期格式
+     * @return Date对象
+     */
+    public static Date strToDate(String str, String dateFormat) {
         SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd");
+        switch (dateFormat) {
+            case "yyyy-MM-dd":
+                break;
+            case "yyyy/MM/dd":
+                sf = new SimpleDateFormat("yyyy/MM/dd");
+                break;
+            case "yyyyMMdd":
+                sf = new SimpleDateFormat("yyyyMMdd");
+                break;
+            default:
+                break;
+        }
+
         try {
             //使用SimpleDateFormat的parse()方法生成Date
             date = sf.parse(str);
@@ -35,6 +53,12 @@ public class MyCalendar {
             e.printStackTrace();
         }
         return date;
+    }
+
+    //获取当前日期
+    public static Date getCurrentDate() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        return new Date(System.currentTimeMillis());
     }
 
     //获取当前年份(String)
@@ -63,6 +87,20 @@ public class MyCalendar {
         Calendar calendar = Calendar.getInstance();
         String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
         return Integer.parseInt(day);
+    }
+
+    /**
+     * 根据日期返回星期
+     * @param date  日期
+     * @return  星期几
+     */
+    public static String getDayOfWeek(Date date) {
+        String[] weekDays = { "星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日" };
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int i = calendar.get(Calendar.DAY_OF_WEEK);
+        return weekDays[i - 1];
     }
 
     //计算当前年龄

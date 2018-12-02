@@ -4,14 +4,23 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <!--
     <color name="myColorPrimary">#2598FD</color>
     <color name="myColorPrimaryDark">#007AE6</color>
     <color name="myColorAccent">#007AE6</color>
+    -->
+
+    <color name="myColorPrimary">#00BFFF</color>
+    <color name="myColorPrimaryDark">#1E92FF</color>
+    <color name="myColorAccent">#00BFFF</color>
+
 
     <color name="grey_f1f1f1">#F1F1F1</color>
     <color name="grey_eeeeee">#EEEEEE</color>
     <color name="grey_e2e2e2">#E2E2E2</color>
     <color name="grey_bababa">#BABABA</color>
+    <color name="grey_555555">#555555</color>
+
     <color name="black_000000">#000000</color>
     <color name="white_ffffff">#FFFFFF</color>
     <color name="transparent">#00000000</color>

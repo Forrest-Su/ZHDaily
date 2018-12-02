@@ -63,6 +63,8 @@ public class MainActivity extends BaseActivity implements
 
     private Handler handler;
 
+    private boolean isLoading = false; //是否正在加载，如果是，禁止用户继续上拉加载操作
+
     private final String latestNewsURL = "https://news-at.zhihu.com/api/4/news/latest";
     private final String oldNewsURLHead = "https://news-at.zhihu.com/api/4/news/before/";
     private String oldNewsURL;
@@ -159,17 +161,21 @@ public class MainActivity extends BaseActivity implements
 
             @Override
             public void onLoadMore() {
-                rvLoadMoreWrapper.setLoadState(rvLoadMoreWrapper.LOADING);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        //加载更多数据
-                        currentMode = MODE_LOAD_MORE;
-                        dateStr = minusDays(minusDays++);
-                        oldNewsURL = oldNewsURLHead + dateStr;
-                        getNewsList(oldNewsURL);
-                    }
-                }).start();
+                if (!isLoading) {
+                    isLoading = true;
+                    rvLoadMoreWrapper.setLoadState(rvLoadMoreWrapper.LOADING);
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            //加载更多数据
+                            currentMode = MODE_LOAD_MORE;
+                            dateStr = minusDays(minusDays++);
+                            oldNewsURL = oldNewsURLHead + dateStr;
+                            getNewsList(oldNewsURL);
+                        }
+                    }).start();
+                }
+
             }
         });
 
@@ -183,9 +189,6 @@ public class MainActivity extends BaseActivity implements
         switch (item.getItemId()) {
             case android.R.id.home:
                 drawerLayout.openDrawer(GravityCompat.START);
-                break;
-            case R.id.login:
-                //Toast.makeText(MainActivity.this, "正在施工", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.night_mode:
                 //Toast.makeText(MainActivity.this, "正在施工", Toast.LENGTH_SHORT).show();
@@ -280,6 +283,7 @@ public class MainActivity extends BaseActivity implements
         //刷新数据
         //刷新数据时暂停自动播放
         isAutoPlay = false;
+        isLoading = true;
         currentMode = MODE_REFRESH;
         getNewsList(latestNewsURL);
     }
@@ -292,6 +296,7 @@ public class MainActivity extends BaseActivity implements
             public void onResponse(Call call, Response response) throws IOException {
                 Log.i(TAG, "onResponse: 请求成功");
                 String responseData = response.body().string();
+                List<News> list = ParseJSONUtil.parseNewsList(responseData);
                 if (currentMode == MODE_REFRESH) {
                     newsList.clear();
                     topNewsList.clear();
@@ -300,8 +305,10 @@ public class MainActivity extends BaseActivity implements
                     topNewsList.add(topList.get(topList.size() - 1));
                     topNewsList.addAll(topList);
                     topNewsList.add(topList.get(0));
+                    minusDays = 1;   //重置
                 }
-                List<News> list = ParseJSONUtil.parseNewsList(responseData);
+
+                newsList.add(new News(list.get(0).getDate(), -1));  //用于显示日期
                 //注意，这里不能直接引用list，也就是不能写成newsList = list,否则无法更新RecyclerView
                 //newsList = list;
                 newsList.addAll(list);
@@ -346,6 +353,7 @@ public class MainActivity extends BaseActivity implements
                 } else if (currentMode == MODE_LOAD_MORE) {
                     rvLoadMoreWrapper.setLoadState(rvLoadMoreWrapper.LOADING_COMPLETE);
                 }
+                isLoading = false;
             }
         });
     }
