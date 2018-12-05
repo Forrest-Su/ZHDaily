@@ -89,7 +89,7 @@ public class NewsActivity extends BaseActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()) {
             case android.R.id.home:
-                Intent toMainActivity = new Intent(NewsActivity.this, MainActivity.class);
+                Intent toMainActivity = new Intent(NewsActivity.this, NewsListActivity.class);
                 startActivity(toMainActivity);
                 break;
             case R.id.share:

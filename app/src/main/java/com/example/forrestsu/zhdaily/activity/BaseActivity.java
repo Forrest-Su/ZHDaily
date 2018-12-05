@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.forrestsu.zhdaily.ActivityCollector;
+import com.umeng.message.PushAgent;
+
+import static anet.channel.util.Utils.context;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -25,6 +28,9 @@ public class BaseActivity extends AppCompatActivity {
 
         //当前活动一被创建，就会添加到List中
         ActivityCollector.addActivity(this);
+
+        //友盟，应用数据统计接口
+        PushAgent.getInstance(context).onAppStart();
     }
 
     @Override

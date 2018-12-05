@@ -16,6 +16,19 @@
         <item name="colorAccent">@color/myColorAccent</item>
     </style>
 
+    <!--冷启动-->
+    <style name="LoadingTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/myColorPrimary</item>
+        <item name="colorPrimaryDark">@color/myColorPrimaryDark</item>
+        <item name="colorAccent">@color/myColorAccent</item>
+
+        <item name="windowActionBar">false</item>//取消Actionbar
+        <item name="windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>//设置全屏
+        <item name="android:windowBackground">@drawable/loading_1080p</item>
+    </style>
+
     <!-- My application theme. -->
     <style name="ToolBarTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
