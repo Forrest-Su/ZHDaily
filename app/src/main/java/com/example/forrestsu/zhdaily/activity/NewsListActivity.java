@@ -1,13 +1,17 @@
 package com.example.forrestsu.zhdaily.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.NavigationView;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +25,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.example.forrestsu.zhdaily.MyOnScrollListener;
 import com.example.forrestsu.zhdaily.R;
@@ -93,6 +98,7 @@ public class NewsListActivity extends BaseActivity implements
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_list);
 
+        requestPermission();
         init();
 
         handler = new Handler();
@@ -113,17 +119,32 @@ public class NewsListActivity extends BaseActivity implements
         };
     }
 
+    /*
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
         //进入界面时自动刷新
         //newsSRL.setRefreshing(true);
     }
+    */
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_toolbar_main, menu);
         return true;
+    }
+
+    //请求权限
+    public void requestPermission() {
+        List<String> permissionList = new ArrayList<String>();
+        if (ContextCompat.checkSelfPermission(NewsListActivity.this,
+                Manifest.permission.READ_PHONE_STATE) != PackageManager.PERMISSION_GRANTED) {
+            permissionList.add(Manifest.permission.READ_PHONE_STATE);
+        }
+        if (!permissionList.isEmpty()) {
+            String permissions[] = permissionList.toArray(new String[permissionList.size()]);
+            ActivityCompat.requestPermissions(NewsListActivity.this, permissions, 1);
+        }
     }
 
 
@@ -227,6 +248,30 @@ public class NewsListActivity extends BaseActivity implements
                     Log.i(TAG, "onFailure: 关闭推送失败");
                 }
             });
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions,
+                                           @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+                if (grantResults.length > 0) {
+                    for (int result : grantResults) {
+                        if (result != PackageManager.PERMISSION_GRANTED) {
+                            Toast.makeText(NewsListActivity.this,
+                                    "请授予权限", Toast.LENGTH_SHORT).show();
+                            finish();
+                            return;
+                        }
+                    }
+                } else {
+                    Toast.makeText(NewsListActivity.this, "未知错误", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+                break;
         }
     }
 
