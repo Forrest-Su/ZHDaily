@@ -48,8 +48,8 @@ public class MyApplication extends Application {
         参数四：设备类型，必须参数，传参数为UMConfigure.DEVICE_TYPE_PHONE则表示手机；传参数为UMConfigure.DEVICE_TYPE_BOX则表示盒子；默认为手机；
         参数五：Push推送业务的secret 填充Umeng Message Secret对应信息（需替换）
         */
-        UMConfigure.init(this, "5c05f3cab465f50d75000098", "Umeng",
-                UMConfigure.DEVICE_TYPE_PHONE, "4f921d39678006e060d91d85ae96b6de");
+        UMConfigure.init(this, "", "Umeng",
+                UMConfigure.DEVICE_TYPE_PHONE, "");
 
         initUpush();
     }
