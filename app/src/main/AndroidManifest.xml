@@ -21,20 +21,21 @@
         android:supportsRtl="true"
         android:theme="@style/MyAppTheme">
 
-        <activity android:name=".activity.MainActivity"
-            android:theme="@style/LoadingTheme">
+        <activity android:name="com.example.forrestsu.zhdaily.activity.NewsListActivity">
             <intent-filter>
                 <!-- Deep Link -->
                 <action android:name="android.intent.action.VIEW" />
+
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".activity.NewsListActivity" />
         <activity android:name=".activity.NewsActivity" />
+
         <activity android:name=".activity.SettingActivity" />
+
     </application>
 
 </manifest>

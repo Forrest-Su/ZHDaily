@@ -22,6 +22,7 @@ import com.example.forrestsu.zhdaily.beans.News;
 import com.example.forrestsu.zhdaily.utils.HttpUtil;
 import com.example.forrestsu.zhdaily.utils.ParseJSONUtil;
 import com.example.forrestsu.zhdaily.utils.WebUtils;
+import com.umeng.analytics.MobclickAgent;
 
 import java.io.IOException;
 
@@ -53,6 +54,8 @@ public class NewsActivity extends BaseActivity {
         id = intent.getStringExtra("id");
         title = intent.getStringExtra("title");
 
+        //U-APP设置场景类型
+        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_DUM_NORMAL);
         init();
 
         getNews(NEWSURL + id);

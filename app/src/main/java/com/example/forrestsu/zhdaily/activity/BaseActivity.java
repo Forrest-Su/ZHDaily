@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 
 import com.example.forrestsu.zhdaily.ActivityCollector;
+import com.umeng.analytics.MobclickAgent;
 import com.umeng.message.PushAgent;
 
 import static anet.channel.util.Utils.context;
@@ -31,6 +32,18 @@ public class BaseActivity extends AppCompatActivity {
 
         //友盟，应用数据统计接口
         PushAgent.getInstance(context).onAppStart();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 
     @Override

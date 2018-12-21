@@ -22,7 +22,6 @@ import com.umeng.message.entity.UMessage;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class MyApplication extends Application {
 
     private static final String TAG = "MyApplication";
